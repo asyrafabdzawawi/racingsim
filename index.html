@@ -112,63 +112,38 @@ button:hover {
     <img src="logo.png" class="logo">
 </div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+// VARIABLE
 let current = 1;
-const max = 15;
 
-// ✅ AMBIL NOMBOR DARI URL (NFC)
-const params = new URLSearchParams(window.location.search);
-const nfcNumber = params.get("r");
-
-if (nfcNumber) {
-    current = parseInt(nfcNumber);
-    if (!isNaN(current) && current >= 1 && current <= max) {
-        document.getElementById("number").innerText = current;
-    }
-}
-
-function nextNumber() {
-    if (current < max) {
-        current++;
-        document.getElementById("number").innerText = current;
-    } else {
-        alert("Giliran tamat!");
-    }
-}
-
-function resetNumber() {
-    current = 1;
-    document.getElementById("number").innerText = current;
-}
-</script>
-
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
-
-<script>
-// CONFIG FIREBASE (GANTI DENGAN KAU PUNYA)
+// CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyDguY_Y8cCpIXhgYzMHaM-qnQkbGoxmuMs",
   authDomain: "racingsim-cfbeb.firebaseapp.com",
+  databaseURL: "https://racingsim-cfbeb-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "racingsim-cfbeb",
   storageBucket: "racingsim-cfbeb.firebasestorage.app",
   messagingSenderId: "382495347924",
-  appId: "1:382495347924:web:1573810d27be8bcd251741",
-  measurementId: "G-K3G193HW57"
-};
+  appId: "1:382495347924:web:1573810d27be8bcd251741"
 };
 
 // INIT
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-// LISTEN REALTIME
-db.ref("racing/number").on("value", (snapshot) => {
-    const num = snapshot.val();
-    if (num) {
-        document.getElementById("number").innerText = num;
-        current = num;
-    }
+// LISTENER
+const numberRef = ref(db, "racing/number");
+
+onValue(numberRef, (snapshot) => {
+  const num = snapshot.val();
+
+  if (num !== null) {
+    document.getElementById("number").innerText = num;
+    current = num;
+  }
 });
 </script>
 
