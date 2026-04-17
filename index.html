@@ -116,6 +116,17 @@ button:hover {
 let current = 1;
 const max = 15;
 
+// ✅ AMBIL NOMBOR DARI URL (NFC)
+const params = new URLSearchParams(window.location.search);
+const nfcNumber = params.get("r");
+
+if (nfcNumber) {
+    current = parseInt(nfcNumber);
+    if (!isNaN(current) && current >= 1 && current <= max) {
+        document.getElementById("number").innerText = current;
+    }
+}
+
 function nextNumber() {
     if (current < max) {
         current++;
