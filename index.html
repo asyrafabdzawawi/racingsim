@@ -142,5 +142,35 @@ function resetNumber() {
 }
 </script>
 
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
+<script>
+// CONFIG FIREBASE (GANTI DENGAN KAU PUNYA)
+const firebaseConfig = {
+  apiKey: "AIzaSyDguY_Y8cCpIXhgYzMHaM-qnQkbGoxmuMs",
+  authDomain: "racingsim-cfbeb.firebaseapp.com",
+  projectId: "racingsim-cfbeb",
+  storageBucket: "racingsim-cfbeb.firebasestorage.app",
+  messagingSenderId: "382495347924",
+  appId: "1:382495347924:web:1573810d27be8bcd251741",
+  measurementId: "G-K3G193HW57"
+};
+};
+
+// INIT
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// LISTEN REALTIME
+db.ref("racing/number").on("value", (snapshot) => {
+    const num = snapshot.val();
+    if (num) {
+        document.getElementById("number").innerText = num;
+        current = num;
+    }
+});
+</script>
+
 </body>
 </html>
