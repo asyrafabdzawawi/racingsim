@@ -3,7 +3,6 @@
 <head>
 <title>Set Number</title>
 </head>
-
 <body>
 
 <script type="module">
@@ -21,24 +20,19 @@ const firebaseConfig = {
   appId: "1:382495347924:web:1573810d27be8bcd251741"
 };
 
-// INIT
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// AMBIL NOMBOR DARI URL
+// AMBIL PARAMETER URL
 const params = new URLSearchParams(window.location.search);
 const num = params.get("r");
 
+console.log("Nombor NFC:", num);
+
 // UPDATE DATABASE
-if (num) {
+if (num !== null) {
   set(ref(db, "racing/number"), parseInt(num));
 }
-
-// AUTO CLOSE (optional)
-setTimeout(() => {
-  window.close();
-}, 500);
-
 </script>
 
 </body>
