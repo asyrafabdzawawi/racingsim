@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Set Number</title>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+</head>
+<body>
+
+<script>
+const firebaseConfig = {
+ const firebaseConfig = {
+  apiKey: "AIzaSyDguY_Y8cCpIXhgYzMHaM-qnQkbGoxmuMs",
+  authDomain: "racingsim-cfbeb.firebaseapp.com",
+  projectId: "racingsim-cfbeb",
+  storageBucket: "racingsim-cfbeb.firebasestorage.app",
+  messagingSenderId: "382495347924",
+  appId: "1:382495347924:web:1573810d27be8bcd251741",
+  measurementId: "G-K3G193HW57"
+};
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ambil nombor dari URL
+const params = new URLSearchParams(window.location.search);
+const num = params.get("r");
+
+if (num) {
+    db.ref("racing/number").set(parseInt(num));
+}
+
+// auto close (optional)
+setTimeout(() => {
+    window.close();
+}, 1000);
+</script>
+
+</body>
+</html>
