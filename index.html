@@ -104,6 +104,9 @@ button:hover {
     <div class="subtitle">RACING SIM</div>
 
     <div class="number" id="number">1</div>
+    <div style="color:white; font-size:30px; margin-top:10px;">
+    TOTAL PLAYER: <span id="total">0</span>
+    </div>
 
     <button onclick="nextNumber()">NEXT</button>
     <button class="reset" onclick="resetNumber()">RESET</button>
@@ -115,6 +118,24 @@ button:hover {
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+import { ref as dbRef, onValue as onValueLogs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+// REF LOGS
+const logsRef = dbRef(db, "racing/logs");
+
+// LISTEN REALTIME
+onValueLogs(logsRef, (snapshot) => {
+  const data = snapshot.val();
+
+  let total = 0;
+
+  if (data) {
+    total = Object.keys(data).length;
+  }
+
+  document.getElementById("total").innerText = total;
+});
 
 // VARIABLE
 let current = 1;
