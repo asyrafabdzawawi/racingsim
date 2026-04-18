@@ -32,6 +32,11 @@ console.log("Nombor NFC:", num);
 // UPDATE DATABASE
 if (num !== null) {
   set(ref(db, "racing/number"), parseInt(num));
+
+  push(ref(db, "racing/logs"), {
+    number: parseInt(num),
+    time: Date.now()
+  });
 }
 </script>
 
