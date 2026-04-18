@@ -181,6 +181,10 @@ window.nextNumber = function() {
     next = 1;
   }
 
+window.resetNumber = function() {
+  set(ref(db, "racing/number"), 1);
+};
+
   // update Firebase (giliran sahaja)
   set(ref(db, "racing/number"), next);
 };
