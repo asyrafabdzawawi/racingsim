@@ -166,6 +166,24 @@ onValue(logsRef, (snapshot) => {
 
   document.getElementById("total").innerText = total;
 });
+
+// =======================
+// ▶️ NEXT (kawal giliran sahaja)
+// =======================
+import { set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+window.nextNumber = function() {
+
+  let next = current + 1;
+
+  // loop 1 → 15
+  if (next > 15) {
+    next = 1;
+  }
+
+  // update Firebase (giliran sahaja)
+  set(ref(db, "racing/number"), next);
+};
 </script>
 </body>
 </html>
